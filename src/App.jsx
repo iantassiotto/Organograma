@@ -5,6 +5,7 @@ import Time from "./components/Time"
 import { Rodape } from "./components/Rodape";
 
 function App () {
+    
     /*Lista de times será estática pois não há interação do usuário com ela*/
     const times = [
         {
