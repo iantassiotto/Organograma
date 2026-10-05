@@ -1,0 +1,14 @@
+.banner {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    background-color: #6278F7;
+    text-align: center;
+}
+
+.banner img {
+    max-width: 67%;
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}

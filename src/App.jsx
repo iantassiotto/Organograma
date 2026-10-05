@@ -1,122 +1,71 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useState } from "react"
+import Banner from "./components/Banner"
+import Formulario from "./components/Formulario"
+import Time from "./components/Time"
+import { Rodape } from "./components/Rodape";
 
-function App() {
-  const [count, setCount] = useState(0)
+function App () {
+    /*Lista de times será estática pois não há interação do usuário com ela*/
+    const times = [
+        {
+            nome: 'Programação',
+            corPrimaria: '#57C278',
+            corSecundaria: '#D9F7E9'
+        },
+        {
+            nome: 'Front-End',
+            corPrimaria: '#82CFFA',
+            corSecundaria: '#E8F8FF'
+        },
+        {
+            nome: 'Data Science',
+            corPrimaria: '#A6D157',
+            corSecundaria: '#F0F8E2'
+        },
+        {
+            nome: 'Devops',
+            corPrimaria: '#E06B69',
+            corSecundaria: '#FDE7E8'
+        },
+        {
+            nome: 'UX e Design',
+            corPrimaria: '#DB6EBF',
+            corSecundaria: '#FAE5F5'
+        },
+        {
+            nome: 'Mobile',
+            corPrimaria: '#FEBA05',
+            corSecundaria: '#FFF5D9'
+        },
+        {
+            nome: 'Inovação e Gestão',
+            corPrimaria: '#FF8A29',
+            corSecundaria: '#FFEEDF'
+        },
+    ];
 
-  return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
+    const [colaboradores, setColaboradores] = useState([]);
+
+    const aoNovoColaboradorAdicionado = (colaborador) => {
+        console.log(colaborador);
+        setColaboradores([...colaboradores, colaborador]);
+    }
+
+    return(
         <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
+            <Banner/>
+            <Formulario times={times.map(time => time.nome)} aoColaboradorCadastrado={colaborador => aoNovoColaboradorAdicionado(colaborador)}/>
+            {times.map(time => <Time 
+                key={time.nome} 
+                nome={time.nome} 
+                corPrimaria={time.corPrimaria} 
+                corSecundaria={time.corSecundaria}
+                colaboradores={colaboradores.filter(colaborador => colaborador.time === time.nome)}
+                />)} 
+            {/*Key serve para o React controlar a renderização de cada componente filho no componente pai*/}
+            <Rodape/>
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+    )
 }
 
 export default App
